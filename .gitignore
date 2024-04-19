@@ -331,3 +331,4 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/terraform,terragrunt,pycharm,pycharm+all,pycharm+iml,git,windows,linux
 /.terraform.lock.hcl
+**/.terraform.lock.hcl/*

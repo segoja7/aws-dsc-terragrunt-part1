@@ -16,7 +16,7 @@ dependency "vpc" {
 
 dependency "security_groups" {
   mock_outputs = {
-    security_group_id = "fake-securitygroup-id"
+    id_securitygroup = "fake-securitygroup-id"
 
   }
 
