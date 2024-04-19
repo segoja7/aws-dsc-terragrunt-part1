@@ -1,0 +1,24 @@
+schemaVersion: "2.2"
+description: "Downloading dsc from s3 bucket for execute in instance windows"
+parameters:
+  BucketS3:
+    type: "String"
+    description: "S3 Bucket with DSC scripts"
+    default: "${names3bucket}"
+mainSteps:
+  - action: "aws:runPowerShellScript"
+    name: "dscScript"
+    inputs:
+      runCommand:
+        - "Import-Module AWSPowerShell"
+        - "$BucketName = '{{BucketS3}}'"
+        - "$ArchivosEnS3 = @('dsc.ps1')"
+        - "$RutaLocal1 = 'C:\\scripts\\'"
+        - "foreach ($ArchivoEnS3 in $ArchivosEnS3) {"
+        - "    $NombreLocal = [System.IO.Path]::GetFileName($ArchivoEnS3)"
+        - "    $RutaLocal = Join-Path -Path $RutaLocal1 -ChildPath $NombreLocal"
+        - "    Read-S3Object -BucketName $BucketName -Key $ArchivoEnS3 -File $RutaLocal"
+        - "    Write-Host 'Archivo descargado: $RutaLocal'"
+        - "}"
+        - "cd $RutaLocal1"
+        - ".\\dsc.ps1"

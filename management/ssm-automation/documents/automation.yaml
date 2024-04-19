@@ -1,0 +1,28 @@
+schemaVersion: '0.3'
+description: |
+  *Runbook for installing WSFC in nodes*
+assumeRole: ${Assume_role}
+parameters:
+  Instance:
+    type: String
+    description: name PC
+    default: ${instance_id}
+mainSteps:
+  - description: waiting while instances is in state running
+    name: Sleep5min
+    action: aws:sleep
+    isEnd: false
+    inputs:
+      Duration: PT5M
+  - description: Download and execute dsc automation.
+    name: dscScript
+    action: aws:runCommand
+    isEnd: true
+    inputs:
+      DocumentName: dsc-script
+      InstanceIds:
+        - ${instance_id}
+
+
+
+
