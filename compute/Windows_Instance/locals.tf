@@ -1,5 +1,5 @@
 locals {
   tags = {
-    ADJoined = "FSXADD"
+    env = "dev"
   }
 }
